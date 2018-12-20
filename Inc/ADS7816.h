@@ -1,5 +1,5 @@
 /*
- * ADS7816.h
+tc * ADS7816.h
  *
  *  Created on: ? ÂÈÇä ???? åž.Ô.
  *      Author: pr
@@ -9,13 +9,13 @@
 #define ADS7816_H_
 #include "stm32f1xx_hal.h"
 
-#define ADS_Data_PIN					GPIO_PIN_9
-#define ADS_Data_PORT					GPIOC
+#define ADS_Data_PIN					GPIO_PIN_15
+#define ADS_Data_PORT					GPIOA
 
-#define ADS_CLK_PIN						GPIO_PIN_8
-#define ADS_CLK_PORT					GPIOC
+#define ADS_CLK_PIN						GPIO_PIN_14
+#define ADS_CLK_PORT					GPIOA
 
-#define ADS_CS_PIN						GPIO_PIN_12
+#define ADS_CS_PIN						GPIO_PIN_10
 #define ADS_CS_PORT						GPIOC
 
 #define HIGH							GPIO_PIN_SET

@@ -15,6 +15,7 @@ void Init_ADS7816(void)
 
 	/* GPIO Ports Clock Enable */
 	__HAL_RCC_GPIOC_CLK_ENABLE();
+	__HAL_RCC_GPIOA_CLK_ENABLE();
 
 	/*Configure GPIO pin Output Level */
 	HAL_GPIO_WritePin(ADS_CLK_PORT, ADS_CLK_PIN, GPIO_PIN_RESET);
@@ -23,14 +24,14 @@ void Init_ADS7816(void)
 	/*Configure GPIO pins : Clock pin  */
 	GPIO_InitStruct.Pin = ADS_CLK_PIN;
 	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	GPIO_InitStruct.Pull = GPIO_PULLUP;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
 	HAL_GPIO_Init(ADS_CLK_PORT, &GPIO_InitStruct);
 
 	/*Configure GPIO pins : chip select pin  */
 	GPIO_InitStruct.Pin = ADS_CS_PIN;
 	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	GPIO_InitStruct.Pull = GPIO_PULLUP;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
 	HAL_GPIO_Init(ADS_CS_PORT, &GPIO_InitStruct);
 
@@ -46,11 +47,9 @@ void Init_ADS7816(void)
 
 uint16_t read_ADS7816S(uint8_t channel)
 {
-	uint16_t voltage=0;
 	setOut(channel);
-	voltage = read_ADS7816();
-	return voltage;
-	}
+	return read_ADS7816();
+}
 
 
 uint16_t read_ADS7816()
@@ -83,8 +82,16 @@ uint16_t Dataread(void) {
 	for (i=11; i>=0; i--)
 	{
 		CLK_LOW;
+		asm("NOP");
+		asm("NOP");
+		asm("NOP");
+		asm("NOP");
+		asm("NOP");
+		asm("NOP");
 		//HAL_Delay(1);
 		CLK_HIGH;
+		asm("NOP");
+		asm("NOP");
 		//HAL_Delay(1);
 		if (digitalRead(ADS_Data_PORT,ADS_Data_PIN)) {
 			//set the bit to 0 no matter what

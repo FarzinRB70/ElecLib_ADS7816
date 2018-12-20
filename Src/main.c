@@ -70,10 +70,10 @@ int main(void)
 	while (1)
 	{
 		char h_mADS,l_mADS;
-		mADS =read_ADS7816S(0);
+		mADS =read_ADS7816S(2);
 		l_mADS = mADS & 0xff;
 		h_mADS = mADS/256;
-		sprintf(mBuff,"te: %x,%x\n",h_mADS,l_mADS);
+		sprintf(mBuff,"te: %x,%x\r\n",h_mADS,l_mADS);
 		HAL_UART_Transmit(&huart1,mBuff, 10, 100);
 		HAL_Delay(1000);
 	}
@@ -157,7 +157,6 @@ static void MX_USART1_UART_Init(void)
  */
 static void MX_GPIO_Init(void)
 {
-	GPIO_InitTypeDef GPIO_InitStruct;
 	/* GPIO Ports Clock Enable */
 	__HAL_RCC_GPIOD_CLK_ENABLE();
 	__HAL_RCC_GPIOA_CLK_ENABLE();
